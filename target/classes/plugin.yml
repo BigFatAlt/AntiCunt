@@ -1,0 +1,6 @@
+name: AntiCunt
+main: me.bigfatalt.anticheat.AntiCunt
+version: 0.1
+description: AntiCunt hunt the cunts
+depend:
+  - Atlas
