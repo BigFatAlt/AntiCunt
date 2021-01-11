@@ -10,7 +10,7 @@ import java.lang.annotation.Target;
 public @interface CheckInfo {
 
     String name();
-    String description();
+    String description() default "";
 
     boolean enabled();
     boolean autoban();

@@ -2,9 +2,11 @@ package me.bigfatalt.anticheat.parser;
 
 import cc.funkemunky.api.tinyprotocol.api.Packet;
 import cc.funkemunky.api.tinyprotocol.packet.in.*;
+import me.bigfatalt.anticheat.AntiCunt;
 import me.bigfatalt.anticheat.data.PlayerData;
 
 public class PacketParser {
+
 
     public void parserReceivingPackets(PlayerData data, Object packet, String type) {
         switch (type) {
@@ -21,6 +23,7 @@ public class PacketParser {
             case Packet.Client.BLOCK_DIG:
                 WrappedInBlockDigPacket blockDigPacket = new WrappedInBlockDigPacket(packet, data.player);
 
+                data.actionProcessor.onBlockDig(blockDigPacket);
                 data.fireChecks(blockDigPacket);
                 break;
             case Packet.Client.BLOCK_PLACE:

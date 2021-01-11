@@ -45,18 +45,14 @@ public class PunishmentListener implements AtlasListener {
                     return;
                 }
 
-                if (check.vl > check.maxVL) {
                     new BukkitRunnable() {
                         public void run() {
                             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "kick " + player.getName() + " " + Color.translate("&5&l[AntiCunt] &7You have been kicked for " + reason));
                             for (String message : KICK_BROADCAST) {
                                 Bukkit.getOnlinePlayers().forEach(onlinePlayer -> onlinePlayer.sendMessage(Color.translate(message)));
                             }
-                            check.alerts.clear();
                         }
                     }.runTaskLater(AntiCunt.instance, 30);
-
-                }
 
                 break;
             case BAN:

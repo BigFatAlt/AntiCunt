@@ -19,6 +19,7 @@ public class AutoClickerA extends Check {
     @Override
     public void handlePacket(Object o) {
         if (o instanceof WrappedInArmAnimationPacket) {
+            if (data.actionProcessor.digging) return;
             if (data.actionProcessor.timeStamp - start > 1000L) {
                 if (cps > 20) {
                     fail();

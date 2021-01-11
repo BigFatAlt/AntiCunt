@@ -10,8 +10,11 @@ public class PacketHandler implements AtlasListener {
 
     @Listen
     public void onPacketReceive(PacketReceiveEvent event) {
+        AntiCunt.instance.baseProfiler.start("event:PacketReceiveEvent");
         PlayerData data = AntiCunt.instance.dataManager.getData(event.getPlayer());
         data.actionProcessor.timeStamp = event.getTimeStamp();
         data.packetParser.parserReceivingPackets(data, event.getPacket(), event.getType());
+
+        AntiCunt.instance.baseProfiler.stop("event:PacketReceiveEvent");
     }
 }

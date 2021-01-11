@@ -6,9 +6,13 @@ import me.bigfatalt.anticheat.check.api.Check;
 import me.bigfatalt.anticheat.check.impl.aimassist.AimAssistA;
 import me.bigfatalt.anticheat.check.impl.autoclicker.AutoClickerA;
 import me.bigfatalt.anticheat.check.impl.autoclicker.AutoClickerB;
+import me.bigfatalt.anticheat.check.impl.autoclicker.AutoClickerC;
 import me.bigfatalt.anticheat.check.impl.killaura.KillauraA;
 import me.bigfatalt.anticheat.check.impl.killaura.KillauraB;
 import me.bigfatalt.anticheat.check.impl.killaura.KillauraC;
+import me.bigfatalt.anticheat.check.impl.magic.MagicA;
+import me.bigfatalt.anticheat.check.impl.magic.MagicB;
+import me.bigfatalt.anticheat.check.impl.magic.MagicC;
 import me.bigfatalt.anticheat.data.info.ActionProcessor;
 import me.bigfatalt.anticheat.data.info.MovementProcessor;
 import me.bigfatalt.anticheat.parser.PacketParser;
@@ -59,9 +63,11 @@ public class PlayerData {
 
     private void initializeChecks() {
         addChecks(new AimAssistA(this));
-        addChecks(new AutoClickerA(this), new AutoClickerB(this));
+        addChecks(new AutoClickerA(this), new AutoClickerB(this), new AutoClickerC(this));
 
         addChecks(new KillauraA(this), new KillauraB(this), new KillauraC(this));
+
+        addChecks(new MagicA(this), new MagicB(this), new MagicC(this));
 
     }
 

@@ -2,6 +2,8 @@ package me.bigfatalt.anticheat;
 
 import cc.funkemunky.api.Atlas;
 import cc.funkemunky.api.events.AtlasListener;
+import cc.funkemunky.api.profiling.BaseProfiler;
+import cc.funkemunky.api.profiling.Profiler;
 import lombok.Getter;
 import me.bigfatalt.anticheat.api.alert.impl.AlertListener;
 import me.bigfatalt.anticheat.api.punishment.impl.PunishmentListener;
@@ -22,6 +24,8 @@ public class AntiCunt extends JavaPlugin {
 
     public DataManager dataManager;
 
+    public BaseProfiler baseProfiler;
+
     public Executor packetExecutor = Executors.newSingleThreadExecutor();
     public Executor alertExecutor = Executors.newSingleThreadExecutor();
 
@@ -30,6 +34,7 @@ public class AntiCunt extends JavaPlugin {
         instance = this;
 
         dataManager = new DataManager();
+        baseProfiler = new BaseProfiler();
 
         registerListeners();
     }
