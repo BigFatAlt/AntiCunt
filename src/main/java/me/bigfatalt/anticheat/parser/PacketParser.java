@@ -34,6 +34,7 @@ public class PacketParser {
             case Packet.Client.ENTITY_ACTION:
                 WrappedInEntityActionPacket entityActionPacket = new WrappedInEntityActionPacket(packet, data.player);
 
+                data.actionProcessor.onAction(entityActionPacket);
                 data.fireChecks(entityActionPacket);
                 break;
             case Packet.Client.USE_ENTITY:
@@ -51,6 +52,28 @@ public class PacketParser {
                 data.movementProcessor.parseMovement(flyingPacket, data);
                 data.actionProcessor.actionFlying();
                 data.fireChecks(flyingPacket);
+                break;
+            case Packet.Client.HELD_ITEM_SLOT:
+                WrappedInHeldItemSlotPacket itemSlotPacket = new WrappedInHeldItemSlotPacket(packet, data.player);
+
+                data.fireChecks(itemSlotPacket);
+                break;
+            case Packet.Client.WINDOW_CLICK:
+                WrappedInWindowClickPacket clickPacket = new WrappedInWindowClickPacket(packet, data.player);
+
+                data.fireChecks(clickPacket);
+                break;
+            case Packet.Client.CLOSE_WINDOW:
+                WrappedInCloseWindowPacket closeWindowPacket = new WrappedInCloseWindowPacket(packet, data.player);
+
+                data.actionProcessor.onClose(closeWindowPacket);
+                data.fireChecks(closeWindowPacket);
+                break;
+            case Packet.Client.CLIENT_COMMAND:
+                WrappedInClientCommandPacket clientCommandPacket = new WrappedInClientCommandPacket(packet, data.player);
+
+                data.actionProcessor.onClientCommand(clientCommandPacket);
+                data.fireChecks(clientCommandPacket);
                 break;
         }
     }

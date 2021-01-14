@@ -12,10 +12,10 @@ public @interface CheckInfo {
     String name();
     String description() default "";
 
-    boolean enabled();
-    boolean autoban();
+    boolean enabled() default true;
+    boolean autoban() default true;
 
-    int maxVl();
+    int maxVl() default 20;
 
     CheckType type();
 

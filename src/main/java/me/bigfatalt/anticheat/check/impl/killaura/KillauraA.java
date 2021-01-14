@@ -9,7 +9,7 @@ import me.bigfatalt.anticheat.check.api.CheckInfo;
 import me.bigfatalt.anticheat.check.api.CheckType;
 import me.bigfatalt.anticheat.data.PlayerData;
 
-@CheckInfo(name = "KillAura A", description = "Checks for attack packets being sent on post", autoban = true, enabled = true, type = CheckType.COMBAT, maxVl = 20)
+@CheckInfo(name = "KillAura A", type = CheckType.COMBAT)
 public class KillauraA extends Check {
 
     public KillauraA(PlayerData data) {

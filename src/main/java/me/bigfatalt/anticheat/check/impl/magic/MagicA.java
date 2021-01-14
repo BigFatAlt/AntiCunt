@@ -8,7 +8,7 @@ import me.bigfatalt.anticheat.data.PlayerData;
 
 import static me.bigfatalt.anticheat.api.punishment.api.PunishmentType.BAN;
 
-@CheckInfo(name = "Magic A", description = "Checks if the pitch > 90", autoban = true, enabled = true, type = CheckType.PACKET, maxVl = 5)
+@CheckInfo(name = "Magic A", type = CheckType.PACKET)
 public class MagicA extends Check {
 
     public MagicA(PlayerData data) {

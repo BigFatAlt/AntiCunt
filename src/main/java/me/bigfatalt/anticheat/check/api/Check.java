@@ -51,8 +51,10 @@ public abstract class Check {
     }
 
     public void punish(String punish, PunishmentType punishmentType) {
+        if (!autoban) return;
+
         if (vl == maxVL) {
-            Atlas.getInstance().getEventManager().callEvent(new PunishmentEvent(punishmentType, data.player, punish, data, this));
+            Atlas.getInstance().getEventManager().callEvent(new PunishmentEvent(punishmentType, data.player, punish, data));
             alerts.clear();
         }
     }

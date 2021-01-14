@@ -43,6 +43,5 @@ public class MovementProcessor {
         this.deltaPitch = MathUtils.getDelta(this.fpitch, this.tpitch);
         this.lPitchAcceleration = this.pitchAcceleration;
         this.pitchAcceleration = MathUtils.getDelta(this.lDeltaPitch, this.deltaPitch);
-
     }
 }

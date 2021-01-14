@@ -17,7 +17,7 @@ import me.bigfatalt.anticheat.data.PlayerData;
  */
 
 
-@CheckInfo(name = "KillAura B", description = "Detects liquid bounce killaura semi decently", autoban = true, enabled = true, type = CheckType.COMBAT, maxVl = 20)
+@CheckInfo(name = "KillAura B", type = CheckType.COMBAT)
 public class KillauraB extends Check {
 
     private int movements, lastMovements, invalid, total, vl;

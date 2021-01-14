@@ -1,9 +1,6 @@
 package me.bigfatalt.anticheat.data.info;
 
-import cc.funkemunky.api.tinyprotocol.packet.in.WrappedInBlockDigPacket;
-import cc.funkemunky.api.tinyprotocol.packet.in.WrappedInBlockPlacePacket;
-import cc.funkemunky.api.tinyprotocol.packet.in.WrappedInFlyingPacket;
-import cc.funkemunky.api.tinyprotocol.packet.in.WrappedInUseEntityPacket;
+import cc.funkemunky.api.tinyprotocol.packet.in.*;
 import cc.funkemunky.api.utils.TickTimer;
 import me.bigfatalt.anticheat.data.PlayerData;
 import me.bigfatalt.anticheat.utils.EvictingList;
@@ -16,7 +13,7 @@ public class ActionProcessor {
 
     public int hitTicks;
     public long timeStamp, lastFlyingTime;
-    public boolean lagging, digging;
+    public boolean lagging, digging, inventory, sprinting;
 
     public TickTimer lastBlockBreakStop = new TickTimer(30);
 
@@ -61,5 +58,28 @@ public class ActionProcessor {
         }
 
     }
+
+    public void onAction(WrappedInEntityActionPacket packet) {
+        switch (packet.getAction()) {
+            case START_SPRINTING:
+                sprinting = true;
+                break;
+            case STOP_SPRINTING:
+                sprinting = false;
+                break;
+        }
+    }
+
+
+    public void onClientCommand(WrappedInClientCommandPacket clientCommandPacket) {
+        if (clientCommandPacket.getCommand().equals(WrappedInClientCommandPacket.EnumClientCommand.OPEN_INVENTORY_ACHIEVEMENT)) {
+            inventory = true;
+        }
+    }
+
+    public void onClose(WrappedInCloseWindowPacket wrappedInCloseWindowPacket) {
+        inventory = false;
+    }
+
 
 }

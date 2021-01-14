@@ -12,7 +12,7 @@ import me.bigfatalt.anticheat.utils.MathUtil;
 import java.util.ArrayList;
 import java.util.List;
 
-@CheckInfo(name = "AutoClicker C*", description = "checks the difference between the first and last deviation", enabled = true, autoban = false, maxVl = 20, type = CheckType.COMBAT)
+@CheckInfo(name = "AutoClicker C*", autoban = false, type = CheckType.COMBAT)
 public class AutoClickerC extends Check {
 
     public AutoClickerC(PlayerData data) {
@@ -35,7 +35,7 @@ public class AutoClickerC extends Check {
                     double deviation = MathUtil.getStandardDeviation(delays);
 
                     if (Math.abs(deviation - lastDeviation) < 0.05) {
-                        if (vl++ > 10) {
+                        if (vl++ > 5) {
                             fail();
                         }
                     } else if (vl > 0) vl--;

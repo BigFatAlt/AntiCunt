@@ -23,7 +23,6 @@ public class PunishmentListener implements AtlasListener {
         PunishmentType punishmentType = event.punishmentType;
         Player player = event.player;
         String reason = event.reason;
-        Check check = event.check;
 
         switch (punishmentType) {
             case KICK:
@@ -66,8 +65,6 @@ public class PunishmentListener implements AtlasListener {
                                 "&dAntiCunt » &5" + player.getName() + " &5has been removed from the server\n" +
                                 "&d&m---------------------------------"};
 
-
-                if (!check.autoban) return;
 
                 if (player.isOp() || player.hasPermission("AntiCunt.bypass")) {
                     for (String message : BAN_BYPASS) {

@@ -6,7 +6,7 @@ import me.bigfatalt.anticheat.check.api.CheckInfo;
 import me.bigfatalt.anticheat.check.api.CheckType;
 import me.bigfatalt.anticheat.data.PlayerData;
 
-@CheckInfo(name = "AutoClicker A", description = "Checks for players clicking 20+ cps", enabled = true, autoban = false, maxVl = 20, type = CheckType.COMBAT)
+@CheckInfo(name = "AutoClicker A", autoban = false, type = CheckType.COMBAT)
 public class AutoClickerA extends Check {
 
     public AutoClickerA(PlayerData data) {

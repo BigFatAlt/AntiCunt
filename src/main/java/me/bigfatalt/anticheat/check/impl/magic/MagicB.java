@@ -8,7 +8,7 @@ import me.bigfatalt.anticheat.data.PlayerData;
 
 import static me.bigfatalt.anticheat.api.punishment.api.PunishmentType.BAN;
 
-@CheckInfo(name = "Magic B", description = "checks to see if the player sends more then 20 postion packets", autoban = true, enabled = true, type = CheckType.PACKET, maxVl = 5)
+@CheckInfo(name = "Magic B", type = CheckType.PACKET, maxVl = 5)
 public class MagicB extends Check {
 
     public MagicB(PlayerData data) {
@@ -31,6 +31,7 @@ public class MagicB extends Check {
 
             if (ticks++ > 20) {
                 fail();
+                punish("Invalid Packets", BAN);
             }
         }
     }

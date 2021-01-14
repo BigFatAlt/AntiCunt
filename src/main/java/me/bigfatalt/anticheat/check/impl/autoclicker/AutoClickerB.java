@@ -11,7 +11,7 @@ import me.bigfatalt.anticheat.utils.MathUtil;
 import java.util.ArrayList;
 import java.util.List;
 
-@CheckInfo(name = "AutoClicker B", description = "checks the deviation of a clicker", enabled = true, autoban = false, maxVl = 20, type = CheckType.COMBAT)
+@CheckInfo(name = "AutoClicker B", autoban = false, type = CheckType.COMBAT)
 public class AutoClickerB extends Check {
 
     public AutoClickerB(PlayerData data) {

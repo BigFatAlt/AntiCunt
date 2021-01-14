@@ -13,6 +13,5 @@ public class PunishmentEvent extends AtlasEvent {
     public Player player;
     public String reason;
     public PlayerData data;
-    public Check check;
 
 }

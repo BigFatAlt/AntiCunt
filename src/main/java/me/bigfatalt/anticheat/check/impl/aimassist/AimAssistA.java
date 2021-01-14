@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
 
-@CheckInfo(name = "AimAssist A", description = "Detects probably the worst aims out there", type = CheckType.COMBAT, autoban = true, enabled = true, maxVl = 50)
+@CheckInfo(name = "AimAssist A" ,type = CheckType.COMBAT, maxVl = 50)
 public class AimAssistA extends Check {
 
     private final Deque<Float> samples = Lists.newLinkedList();

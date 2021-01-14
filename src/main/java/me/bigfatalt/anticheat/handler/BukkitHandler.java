@@ -15,6 +15,11 @@ public class BukkitHandler implements Listener {
         this.plugin = plugin;
     }
 
+    @EventHandler
+    public void onJoin(PlayerJoinEvent event) {
+        Player player = event.getPlayer();
+
+    }
 
     @EventHandler
     public void onLeave(PlayerQuitEvent event) {

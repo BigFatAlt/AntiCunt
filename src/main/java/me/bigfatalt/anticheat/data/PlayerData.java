@@ -4,15 +4,14 @@ import cc.funkemunky.api.tinyprotocol.api.ProtocolVersion;
 import cc.funkemunky.api.tinyprotocol.api.TinyProtocolHandler;
 import me.bigfatalt.anticheat.check.api.Check;
 import me.bigfatalt.anticheat.check.impl.aimassist.AimAssistA;
-import me.bigfatalt.anticheat.check.impl.autoclicker.AutoClickerA;
-import me.bigfatalt.anticheat.check.impl.autoclicker.AutoClickerB;
-import me.bigfatalt.anticheat.check.impl.autoclicker.AutoClickerC;
+import me.bigfatalt.anticheat.check.impl.autoclicker.*;
+import me.bigfatalt.anticheat.check.impl.inventory.InventoryA;
+import me.bigfatalt.anticheat.check.impl.inventory.InventoryB;
+import me.bigfatalt.anticheat.check.impl.inventory.InventoryC;
 import me.bigfatalt.anticheat.check.impl.killaura.KillauraA;
 import me.bigfatalt.anticheat.check.impl.killaura.KillauraB;
 import me.bigfatalt.anticheat.check.impl.killaura.KillauraC;
-import me.bigfatalt.anticheat.check.impl.magic.MagicA;
-import me.bigfatalt.anticheat.check.impl.magic.MagicB;
-import me.bigfatalt.anticheat.check.impl.magic.MagicC;
+import me.bigfatalt.anticheat.check.impl.magic.*;
 import me.bigfatalt.anticheat.data.info.ActionProcessor;
 import me.bigfatalt.anticheat.data.info.MovementProcessor;
 import me.bigfatalt.anticheat.parser.PacketParser;
@@ -63,12 +62,19 @@ public class PlayerData {
 
     private void initializeChecks() {
         addChecks(new AimAssistA(this));
-        addChecks(new AutoClickerA(this), new AutoClickerB(this), new AutoClickerC(this));
+
+        addChecks(new AutoClickerA(this), new AutoClickerB(this), new AutoClickerC(this),
+                  new AutoClickerD(this), new AutoClickerE(this), new AutoClickerF(this));
+
+        addChecks(new InventoryA(this), new InventoryB(this), new InventoryC(this));
 
         addChecks(new KillauraA(this), new KillauraB(this), new KillauraC(this));
 
-        addChecks(new MagicA(this), new MagicB(this), new MagicC(this));
-
+        addChecks(
+                new MagicA(this), new MagicB(this), new MagicC(this),
+                new MagicD(this), new MagicE(this), new MagicF(this),
+                new MagicG(this), new MagicH(this), new MagicI(this),
+                new MagicJ(this), new MagicK(this));
     }
 
 

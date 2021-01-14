@@ -7,7 +7,7 @@ import me.bigfatalt.anticheat.check.api.CheckInfo;
 import me.bigfatalt.anticheat.check.api.CheckType;
 import me.bigfatalt.anticheat.data.PlayerData;
 
-@CheckInfo(name = "KillAura C", description = "Checks for simple no swings", autoban = true, enabled = true, type = CheckType.COMBAT, maxVl = 20)
+@CheckInfo(name = "KillAura C", type = CheckType.COMBAT)
 public class KillauraC extends Check {
 
     public KillauraC(PlayerData data) {
