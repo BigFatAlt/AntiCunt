@@ -24,6 +24,8 @@ public class MagicA extends Check {
                 fail();
                 punish("Invalid pitch", BAN);
             }
+
+            debug(Math.abs(flyingPacket.getPitch()) + "");
         }
     }
 }

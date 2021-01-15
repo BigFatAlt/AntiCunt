@@ -4,7 +4,6 @@ import cc.funkemunky.api.tinyprotocol.packet.in.WrappedInArmAnimationPacket;
 import cc.funkemunky.api.tinyprotocol.packet.in.WrappedInFlyingPacket;
 import cc.funkemunky.api.tinyprotocol.packet.in.WrappedInHeldItemSlotPacket;
 import cc.funkemunky.api.utils.MathUtils;
-import me.bigfatalt.anticheat.api.commands.impl.Ban;
 import me.bigfatalt.anticheat.api.punishment.api.PunishmentType;
 import me.bigfatalt.anticheat.check.api.Check;
 import me.bigfatalt.anticheat.check.api.CheckInfo;

@@ -1,7 +1,9 @@
 package me.bigfatalt.anticheat.check.api;
 
 import cc.funkemunky.api.Atlas;
+import cc.funkemunky.api.utils.Color;
 import com.google.common.collect.Lists;
+import me.bigfatalt.anticheat.AntiCunt;
 import me.bigfatalt.anticheat.api.alert.event.AlertEvent;
 import me.bigfatalt.anticheat.api.punishment.api.PunishmentEvent;
 import me.bigfatalt.anticheat.api.punishment.api.PunishmentType;
@@ -57,6 +59,13 @@ public abstract class Check {
             Atlas.getInstance().getEventManager().callEvent(new PunishmentEvent(punishmentType, data.player, punish, data));
             alerts.clear();
         }
+    }
+
+    public void debug(String debug) {
+        AntiCunt.instance.dataManager.playerDataMap.values().stream()
+                .filter(dData -> dData.debuggingPlayer != null && dData.debuggingCheck != null && dData.debuggingCheck.name.equals(name) && dData.debuggingPlayer.equals(data.player.getUniqueId()))
+                .forEach(dData -> dData.player.sendMessage(Color.translate("&c[DEBUG] &7" + debug)));
+
     }
 
 

@@ -14,6 +14,17 @@ public class MathUtil {
 
     public final double EXPANDER = Math.pow(2, 24);
 
+    public static double magnitude(final double... points) {
+        double sum = 0.0;
+
+        for (final double point : points) {
+            sum += point * point;
+        }
+
+        return Math.sqrt(sum);
+    }
+
+
     public double getVariance(final Collection<? extends Number> data) {
         int count = 0;
 

@@ -75,6 +75,11 @@ public class PacketParser {
                 data.actionProcessor.onClientCommand(clientCommandPacket);
                 data.fireChecks(clientCommandPacket);
                 break;
+            case Packet.Client.STEER_VEHICLE:
+                WrappedInSteerVehiclePacket vehiclePacket = new WrappedInSteerVehiclePacket(packet, data.player);
+
+                data.fireChecks(vehiclePacket);
+                break;
         }
     }
 }

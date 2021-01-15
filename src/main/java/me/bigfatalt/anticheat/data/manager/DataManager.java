@@ -9,7 +9,7 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class DataManager {
-    public static final Map<Player, PlayerData> playerDataMap = new ConcurrentHashMap<>();
+    public final Map<Player, PlayerData> playerDataMap = new ConcurrentHashMap<>();
 
     public PlayerData getData(final Player player) {
         return playerDataMap.computeIfAbsent(player, uuid -> new PlayerData(player));

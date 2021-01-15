@@ -7,13 +7,14 @@ me\bigfatalt\anticheat\check\impl\magic\MagicF.class
 me\bigfatalt\anticheat\handler\PacketHandler.class
 me\bigfatalt\anticheat\data\info\MovementProcessor.class
 me\bigfatalt\anticheat\data\info\ActionProcessor$1.class
-me\bigfatalt\anticheat\api\commands\impl\Alerts.class
 me\bigfatalt\anticheat\check\impl\magic\MagicG.class
 me\bigfatalt\anticheat\check\api\CheckInfo.class
 me\bigfatalt\anticheat\check\impl\autoclicker\AutoClickerF.class
 me\bigfatalt\anticheat\check\impl\inventory\InventoryA.class
 me\bigfatalt\anticheat\api\alert\impl\AlertListener.class
 me\bigfatalt\anticheat\check\impl\magic\MagicB.class
+me\bigfatalt\anticheat\check\impl\magic\MagicN.class
+me\bigfatalt\anticheat\api\settings\ConfigSettings.class
 me\bigfatalt\anticheat\check\impl\killaura\KillauraB.class
 me\bigfatalt\anticheat\check\impl\magic\MagicE.class
 me\bigfatalt\anticheat\check\impl\inventory\InventoryB.class
@@ -22,10 +23,8 @@ me\bigfatalt\anticheat\check\impl\autoclicker\AutoClickerB.class
 me\bigfatalt\anticheat\api\punishment\impl\PunishmentListener$2.class
 me\bigfatalt\anticheat\check\impl\autoclicker\AutoClickerE.class
 me\bigfatalt\anticheat\check\impl\magic\MagicH.class
-me\bigfatalt\anticheat\api\commands\impl\Ban.class
 me\bigfatalt\anticheat\check\impl\autoclicker\AutoClickerD.class
 me\bigfatalt\anticheat\api\alert\event\AlertEvent.class
-me\bigfatalt\anticheat\check\impl\scaffold\ScaffoldA.class
 me\bigfatalt\anticheat\check\impl\magic\MagicA.class
 me\bigfatalt\anticheat\api\punishment\impl\PunishmentListener$3.class
 me\bigfatalt\anticheat\check\impl\inventory\InventoryC.class
@@ -33,8 +32,10 @@ me\bigfatalt\anticheat\check\impl\autoclicker\AutoClickerA.class
 me\bigfatalt\anticheat\check\impl\killaura\KillauraA.class
 me\bigfatalt\anticheat\data\PlayerData.class
 me\bigfatalt\anticheat\utils\EvictingList.class
+me\bigfatalt\anticheat\check\impl\killaura\KillAuraD.class
 me\bigfatalt\anticheat\check\api\Check.class
 me\bigfatalt\anticheat\check\impl\magic\MagicD.class
+me\bigfatalt\anticheat\check\impl\magic\MagicL.class
 me\bigfatalt\anticheat\AntiCunt.class
 me\bigfatalt\anticheat\check\api\CheckType.class
 me\bigfatalt\anticheat\check\impl\magic\MagicI.class
@@ -46,5 +47,7 @@ me\bigfatalt\anticheat\check\impl\autoclicker\AutoClickerC.class
 me\bigfatalt\anticheat\api\punishment\api\PunishmentEvent.class
 me\bigfatalt\anticheat\check\impl\aimassist\AimAssistA.class
 me\bigfatalt\anticheat\data\info\ActionProcessor.class
+me\bigfatalt\anticheat\check\impl\magic\MagicM.class
 me\bigfatalt\anticheat\api\punishment\api\PunishmentType.class
 me\bigfatalt\anticheat\check\impl\magic\MagicC.class
+me\bigfatalt\anticheat\utils\ConfigUtil.class
