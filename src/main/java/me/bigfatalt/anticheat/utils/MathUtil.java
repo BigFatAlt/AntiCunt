@@ -63,7 +63,7 @@ public class MathUtil {
      * @param values The number values
      * @return The kurtosis of {@param values}
      */
-      public double getKurtosis(Collection<? extends Number> values) {
+    public double getKurtosis(Collection<? extends Number> values) {
         double n = values.size();
 
         if (n < 3)
@@ -103,6 +103,12 @@ public class MathUtil {
         return 3 * (mean - median) / variance;
     }
 
+
+    private long convert(long current, long last) {
+        if (last <= 16384) return current;
+        return convert(last, current % last);
+    }
+
     public double getAverage(final Collection<? extends Number> data) {
         return data.stream().mapToDouble(Number::doubleValue).average().orElse(0D);
     }
@@ -123,6 +129,10 @@ public class MathUtil {
             }
         }
         return mode;
+    }
+
+    public boolean isRoughlyEqual(double d1, double d2) {
+        return Math.abs(d1 - d2) < 0.001;
     }
 
     private double getMedian(final List<Double> data) {

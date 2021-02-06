@@ -2,93 +2,100 @@ package me.bigfatalt.anticheat.data;
 
 import cc.funkemunky.api.tinyprotocol.api.ProtocolVersion;
 import cc.funkemunky.api.tinyprotocol.api.TinyProtocolHandler;
+import cc.funkemunky.api.utils.TickTimer;
+import cc.funkemunky.api.utils.math.MCSmooth;
+import cc.funkemunky.api.utils.objects.evicting.EvictingList;
+import com.google.common.collect.Lists;
+import me.bigfatalt.anticheat.AntiCunt;
 import me.bigfatalt.anticheat.check.api.Check;
-import me.bigfatalt.anticheat.check.impl.aimassist.AimAssistA;
-import me.bigfatalt.anticheat.check.impl.autoclicker.*;
-import me.bigfatalt.anticheat.check.impl.inventory.InventoryA;
-import me.bigfatalt.anticheat.check.impl.inventory.InventoryB;
-import me.bigfatalt.anticheat.check.impl.inventory.InventoryC;
-import me.bigfatalt.anticheat.check.impl.killaura.KillAuraD;
-import me.bigfatalt.anticheat.check.impl.killaura.KillauraA;
-import me.bigfatalt.anticheat.check.impl.killaura.KillauraB;
-import me.bigfatalt.anticheat.check.impl.killaura.KillauraC;
-import me.bigfatalt.anticheat.check.impl.magic.*;
-import me.bigfatalt.anticheat.data.info.ActionProcessor;
-import me.bigfatalt.anticheat.data.info.MovementProcessor;
-import me.bigfatalt.anticheat.parser.PacketParser;
+import me.bigfatalt.anticheat.data.manager.CheckManager;
+import me.bigfatalt.anticheat.parsers.MiscParser;
+import me.bigfatalt.anticheat.parsers.MovementParser;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 public class PlayerData {
 
     public Player player;
 
-    public ProtocolVersion protocolVersion;
-
-    public UUID debuggingPlayer;
+    public UUID debuggingPlayer, UUID;
     public Check debuggingCheck;
 
-    public MovementProcessor movementProcessor;
-    public ActionProcessor actionProcessor;
+    public ProtocolVersion protocolVersion;
+    public CheckManager checkManager;
 
-    public PacketParser packetParser;
+    public MovementParser movementParser;
+    public MiscParser miscParser;
 
-    public Set<Check> checkSet = new HashSet<>();
+    public Movement movement;
+    public Misc misc;
 
-    public boolean alerts;
+    public boolean devServer, alertsEnabled, devAlerts;
 
-    public PlayerData(Player player) {
-        this.player = player;
+    private final List<Long> alerts = Lists.newArrayList();
+
+    public PlayerData(UUID uuid) {
+        this.UUID = uuid;
+        this.player = Bukkit.getPlayer(uuid);
         this.protocolVersion = ProtocolVersion.getVersion(TinyProtocolHandler.getProtocolVersion(player).getVersion());
 
-        this.movementProcessor = new MovementProcessor();
-        this.actionProcessor = new ActionProcessor();
-        this.packetParser = new PacketParser();
+
+        this.movementParser = new MovementParser();
+        this.miscParser = new MiscParser();
+
+        this.movement = new Movement();
+        this.misc = new Misc();
+
+        this.checkManager = new CheckManager(this);
 
 
-        if (player.hasPermission("loki.alerts")) alerts = true;
+        if (player.hasPermission("AntiCunt.alert")) alertsEnabled = true;
+        if (player.hasPermission("AntiCunt.developer")) devAlerts = true;
 
-        initializeChecks();
-    }
-
-    private void addCheck(Check check) {
-        checkSet.add(check);
-    }
-
-    private void addChecks(Check... checks) {
-        for (Check check : checks) {
-            addCheck(check);
-        }
-    }
-
-    private void initializeChecks() {
-        addChecks(new AimAssistA(this) );
-
-        addChecks(new AutoClickerA(this), new AutoClickerB(this), new AutoClickerC(this),
-                  new AutoClickerD(this), new AutoClickerE(this), new AutoClickerF(this));
-
-        addChecks(new InventoryA(this), new InventoryB(this), new InventoryC(this));
-
-        addChecks(new KillauraA(this), new KillauraB(this), new KillauraC(this), new KillAuraD(this));
-
-        addChecks(
-                new MagicA(this), new MagicB(this), new MagicC(this),
-                new MagicD(this), new MagicE(this), new MagicF(this),
-                new MagicG(this), new MagicH(this), new MagicI(this),
-                new MagicJ(this), new MagicK(this), new MagicL(this),
-                new MagicL(this), new MagicM(this), new MagicN(this));
-    }
-
-    public Check getCheck(String name) {
-        return checkSet.stream().filter(check -> check.name.equalsIgnoreCase(name)).findFirst().orElse(null);
     }
 
 
-    public void fireChecks(Object packet) {
-        checkSet.parallelStream().forEach(check -> check.handlePacket(packet));
+    public void fireCheck(Object object, long timeStamp) {
+        AntiCunt.instance.packetExecutor
+                .execute(() -> checkManager.getChecks().stream()
+                        .filter(check -> check.enabled)
+                        .forEach(check -> check.handleCheck(object, timeStamp)));
     }
+
+    public class Movement {
+        public double fx, fy, fz; // Last location
+        public double tx, ty, tz; // Current location
+        public float fyaw, fpitch, tyaw, tpitch;
+
+        public MCSmooth yawSmooth = new MCSmooth(), pitchSmooth = new MCSmooth();
+
+        public double deltaH, deltaV, deltaX, deltaZ, deltaY, lDeltaX, lDeltaZ, lDeltaY, lDeltaV, lDeltaH, fallDistance;
+        public float deltaYaw, lDeltaYaw, deltaPitch, lDeltaPitch, cinematicYawDelta, cinematicPitchDelta;
+        public int airTicks, groundTicks;
+
+
+    }
+
+    public class Misc {
+        public final EvictingList<Long> flyingSamples = new EvictingList<>(50);
+        public final ArrayDeque<Integer> sensitivitySamples = new ArrayDeque<>();
+
+        public long lastFlying;
+        public TickTimer
+                lastSlime = new TickTimer(20), lastWeirdBlocks = new TickTimer(10), lastWater = new TickTimer(20),lastClimeable = new TickTimer(20);
+
+        public boolean inLiquid, onSlime, onClimbable;
+        public boolean digging, sprint, serverGround, clientGround,lServerGround, inventory, lagging, cinematic;
+        public int hitTicks, sensitivity , cinimaticTicks, lastCinimaticTicks;
+
+        public double finalSensitivity;
+
+
+    }
+
+
 
 }

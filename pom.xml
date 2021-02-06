@@ -7,6 +7,7 @@
     <groupId>me.bigfatalt.anticheat</groupId>
     <artifactId>AntiCunt</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -22,7 +23,6 @@
                 <configuration>
                     <source>8</source>
                     <target>8</target>
-                    <compilerArgument>-XDignore.symbol.file</compilerArgument>
                 </configuration>
             </plugin>
             <plugin>
@@ -35,6 +35,9 @@
                         <goals>
                             <goal>shade</goal>
                         </goals>
+                        <configuration>
+                            <minimizeJar>true</minimizeJar>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
@@ -49,17 +52,16 @@
 
     <repositories>
         <repository>
-            <id>spigot-repo</id>
-            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+            <id>funkemunky-releases</id>
+            <url>https://nexus.funkemunky.cc/content/repositories/releases/</url>
         </repository>
     </repositories>
 
     <dependencies>
         <dependency>
-            <groupId>org.spigotmc</groupId>
-            <artifactId>spigot-api</artifactId>
-            <version>1.8.8-R0.1-SNAPSHOT</version>
-            <scope>provided</scope>
+            <groupId>org.github.paperspigot</groupId>
+            <artifactId>1.8.8</artifactId>
+            <version>1.8.8</version>
         </dependency>
 
         <dependency>
@@ -69,18 +71,6 @@
             <scope>provided</scope>
         </dependency>
 
-        <dependency>
-            <groupId>com.qrakn</groupId>
-            <artifactId>honcho</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
-
-        <dependency>
-            <artifactId>FlatFile</artifactId>
-            <groupId>dev.brighten.db</groupId>
-            <version>2.0-SNAPSHOT</version>
-        </dependency>
 
         <dependency>
             <groupId>cc.funkemunky.utils</groupId>

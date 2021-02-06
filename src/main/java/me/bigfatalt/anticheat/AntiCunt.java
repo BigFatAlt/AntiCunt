@@ -1,73 +1,85 @@
 package me.bigfatalt.anticheat;
 
 import cc.funkemunky.api.Atlas;
-import cc.funkemunky.api.events.AtlasListener;
-import cc.funkemunky.api.profiling.BaseProfiler;
-import com.qrakn.honcho.Honcho;
+import cc.funkemunky.api.events.EventManager;
+import cc.funkemunky.api.profiling.Profiler;
+import cc.funkemunky.api.utils.MathUtils;
+import cc.funkemunky.api.utils.MiscUtils;
 import lombok.Getter;
-import me.bigfatalt.anticheat.api.alert.impl.AlertListener;
 import me.bigfatalt.anticheat.api.commands.AntiCuntCommand;
-import me.bigfatalt.anticheat.api.punishment.impl.PunishmentListener;
-import me.bigfatalt.anticheat.api.settings.ConfigSettings;
-import me.bigfatalt.anticheat.data.manager.DataManager;
-import me.bigfatalt.anticheat.handler.BukkitHandler;
-import me.bigfatalt.anticheat.handler.PacketHandler;
-import me.bigfatalt.anticheat.utils.ConfigUtil;
+import me.bigfatalt.anticheat.api.events.TickEvent;
+import me.bigfatalt.anticheat.data.manager.CheckManager;
+import me.bigfatalt.anticheat.data.manager.PlayerDataManager;
 import org.bukkit.Bukkit;
-import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
+import java.util.logging.Level;
 
-@Getter
 public class AntiCunt extends JavaPlugin {
 
+    @Getter
     public static AntiCunt instance;
 
-    public DataManager dataManager;
-    public ConfigSettings configSettings;
-    public ConfigUtil configUtil;
+    public PlayerDataManager playerDataManager;
+    public EventManager eventManager;
 
-    public Honcho honcho;
-
-    public BaseProfiler baseProfiler;
+    public Profiler profiler;
 
     public Executor packetExecutor = Executors.newSingleThreadExecutor();
     public Executor alertExecutor = Executors.newSingleThreadExecutor();
 
-    @Override
+    public int ticks;
+
+
     public void onEnable() {
+        if (!Bukkit.getPluginManager().isPluginEnabled("Atlas")) {
+            Bukkit.getLogger().log(Level.SEVERE, "Failed to load AnitCunt. Atlas not found.");
+            return;
+        }
+
+
+
+        MiscUtils.printToConsole("Starting AntiCunt.....");
+        long start = System.nanoTime();
         instance = this;
-        dataManager = new DataManager();
 
-        configUtil = new ConfigUtil(this, "config.yml");
-        configUtil.saveDefaultConfig();
-        configSettings = new ConfigSettings();
-
-        baseProfiler = new BaseProfiler();
-
-        new AntiCuntCommand(this);
+        this.playerDataManager = new PlayerDataManager();
+        this.eventManager = Atlas.getInstance().getEventManager();
 
 
-        registerListeners();
+        registerCommands();
+        runTasks();
+
+        Atlas.getInstance().initializeScanner(this, true, true);
+        long complete = System.nanoTime() - start;
+        MiscUtils.printToConsole("AntiCunt loaded in " + MathUtils.round(complete / 1E6D, 3)  + " ms.");
     }
 
-    private void registerListeners() {
-        Listener[] listeners = {new BukkitHandler(this)};
-        AtlasListener[] atlasListeners = {new PacketHandler(), new PunishmentListener(), new AlertListener()};
+    private void runTasks() {
+        //This allows us to use ticks for time comparisons to allow for more parrallel calculations to actual Minecraft
+        //and it also has the added benefit of being lighter than using System.currentTimeMillis.
+        new BukkitRunnable() {
+            public void run() {
+                TickEvent tickEvent = new TickEvent(ticks++);
 
-        for (Listener listener : listeners) {
-            Bukkit.getPluginManager().registerEvents(listener, this);
-        }
-
-        for (AtlasListener atlasListener : atlasListeners) {
-            Atlas.getInstance().getEventManager().registerListeners(atlasListener, this);
-        }
+                eventManager.callEvent(tickEvent);
+            }
+        }.runTaskTimerAsynchronously(this, 1L, 1L);
     }
 
-    @Override
+    private void registerCommands() {
+        this.getCommand("anticunt").setExecutor(new AntiCuntCommand());
+
+    }
+
     public void onDisable() {
-        instance = null;
+        MiscUtils.printToConsole("Disabling AniCunt");
+        this.playerDataManager.getEntries().clear();
+        this.eventManager.clearAllRegistered();
+        Atlas.getInstance().getFunkeCommandManager().getCommands().clear();
+
     }
 }

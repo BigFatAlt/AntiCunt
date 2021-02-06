@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="AntiCunt:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/AntiCunt_jar</output-path>
+    <root id="archive" name="AntiCunt.jar">
+      <element id="module-output" name="AntiCunt" />
+    </root>
+  </artifact>
+</component>

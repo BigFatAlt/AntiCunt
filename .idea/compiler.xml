@@ -13,7 +13,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="AntiCunt" options="-XDignore.symbol.file" />
+      <module name="AntiCunt" options="" />
     </option>
   </component>
 </project>
