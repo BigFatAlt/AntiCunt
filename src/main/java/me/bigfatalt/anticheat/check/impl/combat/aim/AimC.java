@@ -2,13 +2,14 @@ package me.bigfatalt.anticheat.check.impl.combat.aim;
 
 import cc.funkemunky.api.tinyprotocol.packet.in.WrappedInFlyingPacket;
 import cc.funkemunky.api.utils.MathUtils;
+import me.bigfatalt.anticheat.api.check.Category;
 import me.bigfatalt.anticheat.api.check.Punishment;
 import me.bigfatalt.anticheat.check.api.Check;
 import me.bigfatalt.anticheat.api.check.CheckType;
 import me.bigfatalt.anticheat.data.PlayerData;
 import me.bigfatalt.anticheat.utils.MathUtil;
 
-@CheckType(label = "Aim C", experimental = true)
+@CheckType(label = "Aim C", experimental = true, category = Category.Combat)
 @Punishment
 public class AimC extends Check {
 

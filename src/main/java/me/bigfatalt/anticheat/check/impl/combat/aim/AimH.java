@@ -4,12 +4,13 @@ import cc.funkemunky.api.tinyprotocol.packet.in.WrappedInFlyingPacket;
 import cc.funkemunky.api.utils.Color;
 import cc.funkemunky.api.utils.MathUtils;
 import lombok.val;
+import me.bigfatalt.anticheat.api.check.Category;
 import me.bigfatalt.anticheat.api.check.CheckType;
 import me.bigfatalt.anticheat.api.check.Punishment;
 import me.bigfatalt.anticheat.check.api.Check;
 import me.bigfatalt.anticheat.data.PlayerData;
 
-@CheckType(label = "Aim H", experimental = true)
+@CheckType(label = "Aim H", experimental = true, category = Category.Combat)
 @Punishment
 public class AimH extends Check {
 
@@ -31,8 +32,8 @@ public class AimH extends Check {
             val gcd = MathUtils.gcd((long) (playerData.movement.deltaPitch * 16777216L), (long) (playerData.movement.lDeltaPitch * 16777216L));
             val deviation = getDeviation(acceleration);
 
-            if (playerData.movement.deltaYaw > 1.f) {
-                if (acceleration <= 0.f && gcd <= 0L && deviation <= 0) {
+            if (playerData.movement.deltaYaw > 1.f && playerData.movement.deltaPitch > 1.f) {
+                if (acceleration <= 0.f && gcd <= 0L && deviation <= 0 && acceleration % 1 == 0) {
                     vl++;
                     debug(Color.Green + "accle+=" + acceleration + " GCD+=" + gcd + " Deviation+=" + deviation + " vl+=" + vl);
                     if (vl > 40) {

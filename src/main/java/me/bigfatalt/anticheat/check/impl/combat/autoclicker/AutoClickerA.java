@@ -1,13 +1,14 @@
 package me.bigfatalt.anticheat.check.impl.combat.autoclicker;
 
 import cc.funkemunky.api.tinyprotocol.packet.in.WrappedInArmAnimationPacket;
+import me.bigfatalt.anticheat.api.check.Category;
 import me.bigfatalt.anticheat.api.check.Punishment;
 import me.bigfatalt.anticheat.check.api.Check;
 import me.bigfatalt.anticheat.api.check.CheckType;
 import me.bigfatalt.anticheat.api.check.PunishmentType;
 import me.bigfatalt.anticheat.data.PlayerData;
 
-@CheckType(label = "AutoClicker A")
+@CheckType(label = "AutoClicker A", category = Category.Combat)
 @Punishment(autoban = true, punishment = PunishmentType.BAN)
 public class AutoClickerA extends Check {
     private long start;
@@ -26,6 +27,7 @@ public class AutoClickerA extends Check {
                     flag("CPS: " + cps);
                     punish("AutoClicker A");
                 }
+                playerData.misc.cps = cps;
                 cps = 0;
                 start = timeStamp;
             } else cps++;

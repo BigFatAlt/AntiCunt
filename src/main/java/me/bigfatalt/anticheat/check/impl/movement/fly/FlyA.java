@@ -5,13 +5,14 @@ import cc.funkemunky.api.utils.BlockUtils;
 import cc.funkemunky.api.utils.Color;
 import cc.funkemunky.api.utils.PlayerUtils;
 import cc.funkemunky.api.utils.ReflectionsUtil;
+import me.bigfatalt.anticheat.api.check.Category;
 import me.bigfatalt.anticheat.api.check.Punishment;
 import me.bigfatalt.anticheat.check.api.Check;
 import me.bigfatalt.anticheat.api.check.CheckType;
 import me.bigfatalt.anticheat.data.PlayerData;
 import org.bukkit.GameMode;
 
-@CheckType(label = "Fly A", experimental = true)
+@CheckType(label = "Fly A", experimental = true, category = Category.Movement)
 @Punishment
 public class FlyA extends Check {
 

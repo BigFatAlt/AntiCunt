@@ -61,9 +61,9 @@ public class MovementParser {
         data.movement.deltaV = data.movement.ty - data.movement.fy;
 
 
-        data.movement.deltaZ = Math.abs(data.movement.tz - data.movement.fz);
+        data.movement.deltaZ =  data.movement.tz - data.movement.fz;
         data.movement.lDeltaZ = data.movement.deltaZ;
-        data.movement.deltaX = Math.abs(data.movement.tx - data.movement.fx);
+        data.movement.deltaX =  data.movement.tx - data.movement.fx;
         data.movement.lDeltaX = data.movement.deltaX;
         data.movement.deltaY = (float) (data.movement.ty - data.movement.fy);
         data.movement.lDeltaY = data.movement.deltaY;

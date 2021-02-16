@@ -6,6 +6,7 @@ import cc.funkemunky.api.utils.TickTimer;
 import cc.funkemunky.api.utils.math.MCSmooth;
 import cc.funkemunky.api.utils.objects.evicting.EvictingList;
 import com.google.common.collect.Lists;
+import javafx.util.Pair;
 import me.bigfatalt.anticheat.AntiCunt;
 import me.bigfatalt.anticheat.check.api.Check;
 import me.bigfatalt.anticheat.data.manager.CheckManager;
@@ -13,6 +14,7 @@ import me.bigfatalt.anticheat.parsers.MiscParser;
 import me.bigfatalt.anticheat.parsers.MovementParser;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 
 import java.util.*;
@@ -34,8 +36,6 @@ public class PlayerData {
     public Misc misc;
 
     public boolean devServer, alertsEnabled, devAlerts;
-
-    private final List<Long> alerts = Lists.newArrayList();
 
     public PlayerData(UUID uuid) {
         this.UUID = uuid;
@@ -65,6 +65,11 @@ public class PlayerData {
                         .forEach(check -> check.handleCheck(object, timeStamp)));
     }
 
+    public void resetVLs() {
+        checkManager.getChecks().forEach(check -> check.vl = 0);
+    }
+
+
     public class Movement {
         public double fx, fy, fz; // Last location
         public double tx, ty, tz; // Current location
@@ -81,7 +86,11 @@ public class PlayerData {
 
     public class Misc {
         public final EvictingList<Long> flyingSamples = new EvictingList<>(50);
+        public final EvictingList<Pair<Location, Integer>> targetLocations = new EvictingList<>(40);
         public final ArrayDeque<Integer> sensitivitySamples = new ArrayDeque<>();
+
+
+        public LivingEntity lastTarget;
 
         public long lastFlying;
         public TickTimer
@@ -89,7 +98,8 @@ public class PlayerData {
 
         public boolean inLiquid, onSlime, onClimbable;
         public boolean digging, sprint, serverGround, clientGround,lServerGround, inventory, lagging, cinematic;
-        public int hitTicks, sensitivity , cinimaticTicks, lastCinimaticTicks;
+        public int hitTicks, sensitivity , cinimaticTicks, lastCinimaticTicks, cps;
+        public long lastKeepAlive, ping;
 
         public double finalSensitivity;
 

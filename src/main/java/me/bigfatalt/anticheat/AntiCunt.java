@@ -8,9 +8,11 @@ import cc.funkemunky.api.utils.MiscUtils;
 import lombok.Getter;
 import me.bigfatalt.anticheat.api.commands.AntiCuntCommand;
 import me.bigfatalt.anticheat.api.events.TickEvent;
+import me.bigfatalt.anticheat.data.PlayerData;
 import me.bigfatalt.anticheat.data.manager.CheckManager;
 import me.bigfatalt.anticheat.data.manager.PlayerDataManager;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -52,6 +54,7 @@ public class AntiCunt extends JavaPlugin {
 
         registerCommands();
         runTasks();
+
 
         Atlas.getInstance().initializeScanner(this, true, true);
         long complete = System.nanoTime() - start;

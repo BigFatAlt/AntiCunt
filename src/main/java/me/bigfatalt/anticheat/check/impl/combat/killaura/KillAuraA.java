@@ -3,6 +3,7 @@ package me.bigfatalt.anticheat.check.impl.combat.killaura;
 import cc.funkemunky.api.tinyprotocol.packet.in.WrappedInFlyingPacket;
 import cc.funkemunky.api.tinyprotocol.packet.in.WrappedInUseEntityPacket;
 import cc.funkemunky.api.utils.MathUtils;
+import me.bigfatalt.anticheat.api.check.Category;
 import me.bigfatalt.anticheat.api.check.Punishment;
 import me.bigfatalt.anticheat.check.api.Check;
 import me.bigfatalt.anticheat.api.check.CheckType;
@@ -10,7 +11,7 @@ import me.bigfatalt.anticheat.api.check.PunishmentType;
 import me.bigfatalt.anticheat.data.PlayerData;
 import me.bigfatalt.anticheat.utils.MathUtil;
 
-@CheckType(label = "KillAura A")
+@CheckType(label = "KillAura A", category = Category.Combat)
 @Punishment(autoban = true, punishment = PunishmentType.BAN)
 public class KillAuraA extends Check {
 
@@ -27,9 +28,9 @@ public class KillAuraA extends Check {
             WrappedInUseEntityPacket useEntityPacket = (WrappedInUseEntityPacket) object;
             if (useEntityPacket.getAction() == WrappedInUseEntityPacket.EnumEntityUseAction.ATTACK) {
                 long post = System.currentTimeMillis() - lastFlying;
-                if (post < 1) {
+                if (post <= 1) {
                     if (vl++ > 5) {
-                        flag("Post:" + post);
+                        flag("post+= " + post);
                         punish("KillAura");
                     }
                 } else if (vl > 0) vl--;

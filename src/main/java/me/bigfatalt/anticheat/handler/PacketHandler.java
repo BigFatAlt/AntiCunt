@@ -5,7 +5,10 @@ import cc.funkemunky.api.events.Listen;
 import cc.funkemunky.api.events.impl.PacketReceiveEvent;
 import cc.funkemunky.api.events.impl.PacketSendEvent;
 import cc.funkemunky.api.tinyprotocol.api.Packet;
+import cc.funkemunky.api.tinyprotocol.api.TinyProtocolHandler;
 import cc.funkemunky.api.tinyprotocol.packet.in.*;
+import cc.funkemunky.api.tinyprotocol.packet.out.WrappedOutKeepAlivePacket;
+import cc.funkemunky.api.tinyprotocol.packet.out.WrappedOutTransaction;
 import cc.funkemunky.api.utils.Init;
 import me.bigfatalt.anticheat.AntiCunt;
 import me.bigfatalt.anticheat.data.PlayerData;
@@ -85,6 +88,32 @@ public class PacketHandler implements AtlasListener {
                 WrappedInWindowClickPacket clickPacket = new WrappedInWindowClickPacket(object, data.player);
 
                 data.fireCheck(clickPacket , timeStamp);
+                break;
+            case Packet.Client.KEEP_ALIVE:
+                WrappedInKeepAlivePacket alivePacket = new WrappedInKeepAlivePacket(object, data.player);
+
+                data.misc.ping = timeStamp - data.misc.lastKeepAlive;
+                data.fireCheck(alivePacket, timeStamp);
+                break;
+
+        }
+    }
+
+    @Listen
+    public void sendPacket(PacketSendEvent event) {
+        PlayerData data = AntiCunt.instance.playerDataManager.getData(event.getPlayer());
+        String type = event.getType();
+        Object object = event.getPacket();
+        long timeStamp = event.getTimeStamp();
+
+        switch (type) {
+            case Packet.Server.KEEP_ALIVE:
+                WrappedOutKeepAlivePacket keepAlivePacket = new WrappedOutKeepAlivePacket(object, data.player);
+
+                data.misc.lastKeepAlive = timeStamp;
+                TinyProtocolHandler.sendPacket(event.getPlayer(), new WrappedOutTransaction(0, (short) 69, false).getObject());
+
+                data.fireCheck(keepAlivePacket, timeStamp);
                 break;
         }
     }

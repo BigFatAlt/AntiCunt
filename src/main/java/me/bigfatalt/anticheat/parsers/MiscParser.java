@@ -3,6 +3,7 @@ package me.bigfatalt.anticheat.parsers;
 import cc.funkemunky.api.tinyprotocol.packet.in.*;
 import me.bigfatalt.anticheat.data.PlayerData;
 import me.bigfatalt.anticheat.utils.MathUtil;
+import org.bukkit.entity.LivingEntity;
 
 public class MiscParser {
 
@@ -20,6 +21,7 @@ public class MiscParser {
 
     public void parserUseEntity(WrappedInUseEntityPacket entityPacket, PlayerData data) {
         if (entityPacket.getAction() == WrappedInUseEntityPacket.EnumEntityUseAction.ATTACK) {
+            data.misc.lastTarget = (LivingEntity) entityPacket.getEntity();
             data.misc.hitTicks = 0;
         }
 

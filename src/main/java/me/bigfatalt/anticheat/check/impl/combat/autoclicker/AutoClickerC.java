@@ -2,6 +2,7 @@ package me.bigfatalt.anticheat.check.impl.combat.autoclicker;
 
 import cc.funkemunky.api.tinyprotocol.packet.in.WrappedInArmAnimationPacket;
 import cc.funkemunky.api.tinyprotocol.packet.in.WrappedInFlyingPacket;
+import me.bigfatalt.anticheat.api.check.Category;
 import me.bigfatalt.anticheat.api.check.Punishment;
 import me.bigfatalt.anticheat.check.api.Check;
 import me.bigfatalt.anticheat.api.check.CheckType;
@@ -11,7 +12,7 @@ import me.bigfatalt.anticheat.utils.MathUtil;
 import java.util.ArrayList;
 import java.util.List;
 
-@CheckType(label = "AutoClicker C")
+@CheckType(label = "AutoClicker C", category = Category.Combat)
 @Punishment
 public class AutoClickerC extends Check {
 
@@ -34,7 +35,7 @@ public class AutoClickerC extends Check {
 
                     if (deviation < 5.0) {
                         if (vl++ > 20) {
-                            flag("STD: " + deviation + " CPS: " + cps);
+                            flag("deviation+= " + deviation + " CPS+= " + playerData.misc.cps);
                         }
                     } else if (vl > 0) vl--;
 

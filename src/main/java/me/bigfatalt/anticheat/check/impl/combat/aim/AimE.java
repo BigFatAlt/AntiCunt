@@ -4,13 +4,14 @@ import cc.funkemunky.api.tinyprotocol.packet.in.WrappedInFlyingPacket;
 import cc.funkemunky.api.utils.Color;
 import cc.funkemunky.api.utils.MathUtils;
 import cc.funkemunky.api.utils.objects.evicting.EvictingList;
+import me.bigfatalt.anticheat.api.check.Category;
 import me.bigfatalt.anticheat.api.check.CheckType;
 import me.bigfatalt.anticheat.api.check.Punishment;
 import me.bigfatalt.anticheat.check.api.Check;
 import me.bigfatalt.anticheat.data.PlayerData;
 import me.bigfatalt.anticheat.utils.MathUtil;
 
-@CheckType(label = "Aim E", experimental = true)
+@CheckType(label = "Aim E", category = Category.Combat)
 @Punishment
 public class AimE extends Check {
 

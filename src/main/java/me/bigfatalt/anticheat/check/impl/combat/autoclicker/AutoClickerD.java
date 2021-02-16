@@ -2,6 +2,7 @@ package me.bigfatalt.anticheat.check.impl.combat.autoclicker;
 
 import cc.funkemunky.api.tinyprotocol.packet.in.WrappedInArmAnimationPacket;
 import cc.funkemunky.api.tinyprotocol.packet.in.WrappedInFlyingPacket;
+import me.bigfatalt.anticheat.api.check.Category;
 import me.bigfatalt.anticheat.api.check.Punishment;
 import me.bigfatalt.anticheat.check.api.Check;
 import me.bigfatalt.anticheat.api.check.CheckType;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Punishment
-@CheckType(label = "AutoClicker D")
+@CheckType(label = "AutoClicker D", category = Category.Combat)
 public class AutoClickerD extends Check {
 
     private int movements, vl;
@@ -38,7 +39,7 @@ public class AutoClickerD extends Check {
 
                     if (acceleration < 5.0) {
                         if (vl++ > 20) {
-                            flag("accleration: "+ acceleration + " CPS: " + cps);
+                            flag("accleration+= "+ acceleration + " CPS+= " + playerData.misc.cps);
                         }
                     } else if (vl > 0) vl--;
 

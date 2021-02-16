@@ -3,6 +3,7 @@ package me.bigfatalt.anticheat.check.api;
 import cc.funkemunky.api.utils.Color;
 import cc.funkemunky.api.utils.JsonMessage;
 import me.bigfatalt.anticheat.AntiCunt;
+import me.bigfatalt.anticheat.api.check.Category;
 import me.bigfatalt.anticheat.api.check.CheckType;
 import me.bigfatalt.anticheat.api.check.Punishment;
 import me.bigfatalt.anticheat.api.check.PunishmentType;
@@ -14,6 +15,8 @@ import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 
+import java.util.Collections;
+
 public class Check {
 
     public String label;
@@ -23,11 +26,13 @@ public class Check {
     public CheckType checkType;
     public Punishment punish;
 
+    public Category category;
+
     public PunishmentType punishmentType;
 
     public final PlayerData playerData;
 
-    private int vl;
+    public int vl;
 
 
     public Check(PlayerData data) {
@@ -46,6 +51,7 @@ public class Check {
         this.label = checkType.label();
         this.enabled = checkType.enabled();
         this.experimental = checkType.experimental();
+        this.category = checkType.category();
 
         this.maxVL = punish.maxVL();
         this.autoban = punish.autoban();
@@ -56,6 +62,8 @@ public class Check {
     }
 
     public void flag(String information) {
+        if (!enabled) return;
+
         vl++;
         AntiCunt.instance.eventManager.callEvent(new AntiCuntAlertEvent(playerData, playerData.player, label, information, vl));
     }

@@ -27,7 +27,10 @@ public class AlertHandler implements AtlasListener {
         int vl = event.violations;
 
         final TextComponent alertMessage = new TextComponent(Color.translate("&6&lAntiCunt&e> &f" + event.player.getName() + " &7violated &f" + label + " &7[" + vl + "]"));
-        alertMessage.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(Color.translate(event.information + "")).create()));
+
+            alertMessage.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(
+                    Color.translate("&6&lInformation: \n&f" + event.information + "\n" + "\n&6&lPing:" + "\n&f" + data.misc.ping + "\n")).create()));
+
 
         AntiCunt.instance.alertExecutor.execute(() -> {
             Bukkit.getOnlinePlayers().stream()

@@ -11,6 +11,8 @@ public @interface CheckType {
 
     String label();
 
+    Category category();
+
     boolean enabled() default true;
     boolean experimental() default false;
 }
